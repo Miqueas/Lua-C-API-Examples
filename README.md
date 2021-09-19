@@ -18,7 +18,7 @@ And in the `_BUILD` folder you'll see the compiled files
 There's some good reads that can help to understand the Lua stack:
 
  * [Stack (Wikipedia)][StackWikipedia] &ndash; _This was really helpful for me (mostly the simple illustration with 6 elements)_
- * [Understanding the lua stack][UderstandingStack] &ndash; _A set of articles I found about the stack_
+ * [Understanding the lua stack][UnderstandingStack] &ndash; _A set of articles I found about the stack_
  * [The Stack][LuaManual] &ndash; _The official Lua manual explain how indexing the stack works, and tells about absolute and relative indexes_
 
 [StackWikipedia]: https://en.wikipedia.org/wiki/Stack_(abstract_data_type)
