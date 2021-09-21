@@ -36,10 +36,6 @@ int fib(lua_State *L) {
   return 1;
 }
 
-// Windows compat
-#if defined(_WIN32) || defined(_WIN64)
-__declspec(dllexport)
-#endif
 int luaopen_mylib(lua_State *L) {
   // Table to be returned
   lua_createtable(L, 0, 3);
