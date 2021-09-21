@@ -14,10 +14,7 @@ int hello(lua_State *L) {
     (lua_isstring(L, 1) && lua_isnumber(L, 1)) ||
     (!lua_isstring(L, 1) && !lua_isnil(L, 1))
   ) {
-    return luaL_error(L,
-      "bad agument #1 (string expected, got %s)",
-      lua_typename(L, lua_type(L, 1))
-    );
+    return luaL_typerror(L, 1, "string");
   } else if (!lua_isstring(L, 1) && lua_isnil(L, 1)) {
     name = "guest";
   } else { name = lua_tostring(L, 1); }
@@ -28,7 +25,7 @@ int hello(lua_State *L) {
   return 0;
 }
 
-int luaopen_libhello(lua_State *L) {
+int luaopen_hello(lua_State *L) {
   // Push the above C function as a global function
   lua_register(L, "hello", hello);
   return 0;
