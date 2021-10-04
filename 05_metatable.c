@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 #include "constants.h"
 
 #include <lua.h>
@@ -13,16 +12,21 @@ int __call_metamethod(lua_State *L) {
   if (lua_isnil(L, 2)) {
     printf("key '%s' doesn't exists in table 'MyTable'\n", key);
   } else {
-    const char *type = luaL_typename(L, 2);
+    int type = lua_type(L, 2);
 
-    if (!strcmp(type, "number")) {
-      printf("%s = %f\n", key, lua_tonumber(L, 2));
-    } else if (!strcmp(type, "string")) {
-      printf("%s = %s\n", key, lua_tostring(L, 2));
-    } else if (!strcmp(type, "boolean")) {
-      printf("%s = %s\n", key, (lua_toboolean(L, 2)) ? "true" : "false");
-    } else {
-      printf("%s = %s\n", key, type);
+    switch (type) {
+      case LUA_TNUMBER:
+        printf("%s = %f\n", key, lua_tonumber(L, 2));
+        break;
+      case LUA_TSTRING:
+        printf("%s = %s\n", key, lua_tostring(L, 2));
+        break;
+      case LUA_TBOOLEAN:
+        printf("%s = %s\n", key, (lua_toboolean(L, 2)) ? "true" : "false");
+        break;
+      default:
+        printf("%s = %s(%p)\n", key, lua_typename(L, type), lua_topointer(L, 2));
+        break;
     }
   }
 
