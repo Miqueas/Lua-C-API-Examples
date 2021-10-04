@@ -1,4 +1,4 @@
-require("libghello")
+require("@gfunc@")
 
 hello("Name")
 hello(2) -- Error
