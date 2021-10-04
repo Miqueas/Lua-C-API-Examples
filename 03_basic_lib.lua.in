@@ -1,0 +1,4 @@
+local lib = require("@basic_lib@")
+print(lib.sqr(3.14))
+print(lib.cube(3.14))
+print(lib.fib(3.14))
