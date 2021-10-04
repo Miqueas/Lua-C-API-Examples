@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 #include <lua.h>
 #include <lualib.h>
@@ -11,17 +10,17 @@
  */
 int main(int argc, char **argv) {
   // Creates a new lua runtime
-  lua_State *lvm = luaL_newstate();
+  lua_State *L = luaL_newstate();
   // Enable lua standard libraries
-  luaL_openlibs(lvm);
+  luaL_openlibs(L);
   // On top of the stack
-  lua_getglobal(lvm, "print");
+  lua_getglobal(L, "print");
   // Pass the below string as argument for the print() function
-  lua_pushstring(lvm, "Hello, world from the C API!");
+  lua_pushstring(L, "Hello, world from the C API!");
   // Aaand then... Calls the function!
-  lua_call(lvm, 1, 0);
+  lua_call(L, 1, 0);
   // Destroy all the sh*t... And closes the lua runtime :)
-  lua_close(lvm);
+  lua_close(L);
 
   return 0;
 }
