@@ -1,23 +1,16 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#include "constants.h"
 
 #include <lua.h>
 #include <lualib.h>
 #include <lauxlib.h>
 
-const char *CODE =              \
-  "Config = {}\n"               \
-  "Config.enable_std = false\n" \
-  "Config.name = 'Jhon Doe'\n"  \
-  "Config.access = 'all'\n"     \
-  "Config.verbose = true";
-
 int main(int argc, char **argv) {
   lua_State *L = luaL_newstate();
-  bool verbose = 0;
+  int verbose = 0;
 
-  if (luaL_dostring(L, CODE)) {
+  int err = luaL_dofile(L, TABLE_PATH);
+  if (err) {
     fprintf(stderr, "Can't load lua code\n");
     return 1;
   } else {
