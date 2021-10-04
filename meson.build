@@ -9,7 +9,8 @@ names = [
   'hello',
   'mylib',
   '04_table',
-  '05_metatable'
+  '05_metatable',
+  'book'
 ]
 
 constants_cfg = {
@@ -35,6 +36,12 @@ configure_file(
   configuration: { 'basic_lib': names[2] }
 )
 
+configure_file(
+  input: '06_userdata.lua.in',
+  output: '06_userdata.lua',
+  configuration: { 'book': names[5] }
+)
+
 executable(names[0], '01_hello_world.c', dependencies: deps)
 
 library(names[1], '02_gfunc.c',
@@ -51,3 +58,9 @@ library(names[2], '03_basic_lib.c',
 
 executable(names[3], '04_table.c', dependencies: deps)
 executable(names[4], '05_metatable.c', dependencies: deps)
+
+library(names[5], '06_userdata.c',
+  name_prefix: '',
+  dependencies: deps,
+  c_args: [ '-fPIC', '-shared' ]
+)
