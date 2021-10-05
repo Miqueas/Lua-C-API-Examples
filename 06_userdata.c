@@ -25,16 +25,22 @@ int new_book(lua_State *L) {
   // Cleans the stack
   lua_settop(L, 0);
 
+  // lua_newuserdata() is used like malloc()
   Book *b = (Book *) lua_newuserdata(L, sizeof(Book));
   b->title  = title;
   b->author = author;
   b->pages  = pages;
   b->year   = year;
   
+  // stack: Book(userdata), table
   lua_newtable(L);
+  // stack: Book(userdata), table, "__index"
   lua_pushstring(L, "__index");
+  // stack: Book(userdata), table, "__index", cfunction
   lua_pushcfunction(L, book___index);
+  // stack: Book(userdata), table
   lua_rawset(L, 2);
+  // stack: Book(userdata)
   lua_setmetatable(L, 1);
 
   return 1;

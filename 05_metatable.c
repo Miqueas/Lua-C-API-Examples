@@ -52,12 +52,14 @@ int main(int argc, char **argv) {
   lua_pushcfunction(L, __call_metamethod);
   lua_rawset(L, 2);
 
-  // Set the metatable. lua_setmetatable assumes tha the table to
+  // Set the metatable. lua_setmetatable assumes that the table to
   // use as metatable is the last element in the stack, so pop it
   // and sets as metatable for the table at the given index. Now,
   // "MyTable" is in top of the stack
   lua_setmetatable(L, 1);
 
+  // Now we can call the table "MyTable" and this will use the
+  // __call metamethod of the table
   lua_pushstring(L, "name");
   lua_call(L, 1, 0);
 
