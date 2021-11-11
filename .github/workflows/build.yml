@@ -1,0 +1,28 @@
+name: Build
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+
+      - name: Set up GCC
+        uses: egor-tensin/setup-gcc@v1
+
+      - name: Set up Lua 5.1
+        uses: leafo/gh-actions-lua@v8.0.0
+        with:
+          luaVersion: "5.1.5"
+
+      - name: Installing Meson and Ninja
+        run: pip install meson ninja
+        
+      - name: Configure using meson
+        run: meson . _BUILD
+      
+      - name: Build with Ninja
+        run: ninja -C _BUILD
