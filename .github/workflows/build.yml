@@ -1,7 +1,7 @@
-name: Build
+name: Build and test
 on: [push]
 jobs:
-  build:
+  build-test:
     runs-on: ubuntu-latest
     steps:
       - name: Set up repository
@@ -14,7 +14,7 @@ jobs:
         uses: egor-tensin/setup-gcc@v1
 
       - name: Set up Lua 5.1
-        run: sudo apt install -yq liblua5.1-0-dev libreadline-dev libncurses-dev
+        run: sudo apt install -yq lua5.1 liblua5.1-0-dev libreadline-dev libncurses-dev
 
       - name: Installing Meson and Ninja
         run: pip install meson ninja
@@ -24,3 +24,6 @@ jobs:
       
       - name: Build with Ninja
         run: ninja -C _BUILD
+
+      - name: Running Meson tests
+        run: meson test -C _BUILD
