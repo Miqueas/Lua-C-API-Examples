@@ -13,6 +13,14 @@ ninja -C _BUILD
 
 And in the `_BUILD` folder you'll see the compiled files
 
+## Running tests
+
+Just:
+
+```
+meson test -C _BUILD
+```
+
 ## References
 
 I mainly readed the [Official Reference Manual][LuaManual] but I also saw this:
@@ -21,6 +29,7 @@ I mainly readed the [Official Reference Manual][LuaManual] but I also saw this:
  * [Stack (Wikipedia)][StackWikipedia] &ndash; _The simple illustration with numbers was really helpful_
  * [Understanding the lua stack][UnderstandingStack] &ndash; _A set of articles I found about the stack_
  * [tylerneylon/lua_api_demo][api_demo_repo] &ndash; _Here I learned how to use the `lua_newuserdata` function_
+ * [hertogp/lua-capi-examples][lua-capi-examples] &ndash; _Stack dump example_
 
 And finally, thanks to the members of the [Telegram Group][TelegramGroup]!
 
@@ -33,4 +42,5 @@ Yes :heavy_check_mark:
 [LuaManual]: https://www.lua.org/manual/5.1/manual.html#3
 [api_demo_repo]: https://github.com/tylerneylon/lua_api_demo
 [lua-c-api-tutorial]: https://github.com/Veinin/lua-c-api-tutorials
+[lua-capi-examples]: https://github.com/hertogp/lua-capi-examples
 [TelegramGroup]: https://t.me/LuaLang
