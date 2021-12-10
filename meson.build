@@ -10,7 +10,8 @@ names = [
   'mylib',
   '04_table',
   '05_metatable',
-  'book'
+  'book',
+  '07_stack_dump'
 ]
 
 lua = find_program('lua5.1', 'lua51', required: false)
@@ -27,8 +28,8 @@ configure_file(
   input: 'constants.h.in',
   output: 'constants.h',
   configuration: {
-    'table':     meson.project_source_root() / '04_table.lua',
-    'metatable': meson.project_source_root() / '05_metatable.lua'
+    'table':      meson.project_source_root() / '04_table.lua',
+    'metatable':  meson.project_source_root() / '05_metatable.lua'
   }
 )
 
@@ -73,6 +74,8 @@ library(names[5], '06_userdata.c',
   c_args: [ '-fPIC', '-shared' ]
 )
 
+stack_dump_exe = executable(names[6], '07_stack_dump.c', dependencies: deps)
+
 if tests
   test('01 hello world', hello_world_exe)
   # This example is expected to fail
@@ -81,4 +84,5 @@ if tests
   test('04 table', table_exe)
   test('05 metatable', metatable_exe)
   test('06 userdata', lua, args: [ userdata_lua ])
+  test('07 stack dump', stack_dump_exe)
 endif
