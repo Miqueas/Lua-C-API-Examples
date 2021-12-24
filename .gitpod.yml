@@ -6,4 +6,4 @@ tasks:
       sudo apt update
       sudo apt upgrade -y
       sudo apt install -y python3-pip liblua5.1-0-dev lua5.1
-      pip3 install -U meson ninja pip
+      sudo pip3 install -U meson ninja pip
