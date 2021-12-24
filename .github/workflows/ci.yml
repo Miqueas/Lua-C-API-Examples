@@ -1,7 +1,8 @@
-name: Build and test
+name: Build & Test
 on: [push]
 jobs:
-  build-test:
+  ci:
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
       - name: Set up repository
