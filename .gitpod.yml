@@ -1,4 +1,4 @@
-image: gitpod/workspace-base
+image: ubuntu:impish
 
 tasks:
   - name: Setup requeriments
@@ -7,3 +7,7 @@ tasks:
       sudo apt upgrade -yq
       sudo apt install -yq python3-pip liblua5.1-0-dev lua5.1
       sudo pip3 install -Uq meson ninja
+
+vscode:
+  extensions:
+    - asabil.meson
