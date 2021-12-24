@@ -2,15 +2,12 @@ image: gitpod/workspace-base
 
 tasks:
   - name: Setup workspace
-    init: |
+    command: |
       sudo apt update
       sudo apt upgrade -yq
       sudo apt install -yq ccls python3-pip liblua5.1-0-dev lua5.1
       sudo pip3 install -Uq meson ninja
-    command: |
       meson _B
-      ninja -C _B
-      meson test -C _B
 
 vscode:
   extensions:
