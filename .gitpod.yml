@@ -1,4 +1,4 @@
-image: ubuntu:impish
+image: gitpod/workspace-base
 
 tasks:
   - name: Setup requeriments
