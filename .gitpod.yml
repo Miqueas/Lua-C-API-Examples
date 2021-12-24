@@ -1,0 +1,10 @@
+image: gitpod/workspace-base
+
+tasks:
+  - name: Setup requeriments
+    init: |
+      sudo apt update
+      sudo apt upgrade -y
+      sudo apt install python3-pip
+      pip3 install -U meson ninja pip
+      sudo apt install -y liblua5.1-0-dev lua5.1
