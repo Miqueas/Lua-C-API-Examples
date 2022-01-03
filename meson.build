@@ -1,6 +1,8 @@
 project('Lua-C-API', 'c', version: '0.1')
 
-deps = [ dependency('lua5.1', required: true) ]
+lua51 = dependency('lua5.1', required: true)
+lua52 = dependency('lua5.2', required: true)
+lua53 = dependency('lua5.3', required: true)
 
 # Names for binaries/libraries, in the order as shown
 # in the repo (01, 02, 03, ...)
@@ -51,30 +53,34 @@ userdata_lua = configure_file(
   configuration: { 'book': names[5] }
 )
 
-hello_world_exe = executable(names[0], '01_hello_world.c', dependencies: deps)
+hello_world_exe = executable(names[0], '01_hello_world.c', dependencies: lua51)
 
 library(names[1], '02_gfunc.c',
   name_prefix: '',
-  dependencies: deps,
+  dependencies: lua51,
   c_args: [ '-fPIC', '-shared' ]
 )
 
 library(names[2], '03_basic_lib.c',
   name_prefix: '',
-  dependencies: deps,
+  dependencies: lua51,
   c_args: [ '-fPIC', '-shared' ]
 )
 
-table_exe = executable(names[3], '04_table.c', dependencies: deps)
-metatable_exe = executable(names[4], '05_metatable.c', dependencies: deps)
+table_exe = executable(names[3], '04_table.c', dependencies: lua51)
+metatable_exe = executable(names[4], '05_metatable.c', dependencies: lua51)
 
 library(names[5], '06_userdata.c',
   name_prefix: '',
-  dependencies: deps,
+  dependencies: lua51,
   c_args: [ '-fPIC', '-shared' ]
 )
 
-stack_dump_exe = executable(names[6], '07_stack_dump.c', dependencies: deps)
+stack_dump_exe = executable(names[6], '07_stack_dump.c', dependencies: lua51)
+
+versions_51 = executable('08_versions_51', '08_versions.c', dependencies: lua51)
+versions_52 = executable('08_versions_52', '08_versions.c', dependencies: lua52)
+versions_53 = executable('08_versions_53', '08_versions.c', dependencies: lua53)
 
 if tests
   test('01 hello world', hello_world_exe)
@@ -85,4 +91,7 @@ if tests
   test('05 metatable', metatable_exe)
   test('06 userdata', lua, args: [ userdata_lua ])
   test('07 stack dump', stack_dump_exe)
+  test('08 versions (5.1)', versions_51)
+  test('08 versions (5.2)', versions_52)
+  test('08 versions (5.3)', versions_53)
 endif
