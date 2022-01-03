@@ -14,8 +14,11 @@ jobs:
       - name: Set up GCC
         uses: egor-tensin/setup-gcc@v1
 
-      - name: Set up Lua 5.1
-        run: sudo apt install -yq lua5.1 liblua5.1-0-dev libreadline-dev libncurses-dev
+      - name: Set up Lua
+        run: >
+          sudo apt install -yq libreadline-dev libncurses-dev
+          lua5.1 lua5.2 lua5.3 liblua5.1-0-dev
+          liblua5.2-dev liblua5.3-dev
 
       - name: Installing Meson and Ninja
         run: pip install meson ninja
