@@ -35,7 +35,7 @@ int fib(lua_State *L) {
   return 1;
 }
 
-int luaopen_mylib(lua_State *L) {
+int luaopen_basic_lib(lua_State *L) {
   // Table to be returned
   lua_createtable(L, 0, 3);
 

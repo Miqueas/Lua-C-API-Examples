@@ -64,7 +64,7 @@ int book___index(lua_State *L) {
   return 1;
 }
 
-int luaopen_book(lua_State *L) {
+int luaopen_userdata(lua_State *L) {
   lua_pushcfunction(L, new_book);
 
   return 1;

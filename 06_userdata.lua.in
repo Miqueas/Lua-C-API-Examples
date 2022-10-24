@@ -1,4 +1,4 @@
-local Book = require("@book@")
+local Book = require("@userdata@")
 local b = Book("Programming in Lua", "Roberto Ierusalimschy", 388, 2016)
 
 print(b.title)

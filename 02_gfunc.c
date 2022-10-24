@@ -25,7 +25,7 @@ int hello(lua_State *L) {
 // Since we're making a C module for Lua, the way that Lua loads it is
 // calling a function called "luaopen_<modname>". Be careful about this
 // 'cause your module can't be loaded if there's an naming error!
-int luaopen_hello(lua_State *L) {
+int luaopen_gfunc(lua_State *L) {
   // Push the above C function as a global function
   lua_register(L, "hello", hello);
 
