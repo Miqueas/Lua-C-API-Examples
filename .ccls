@@ -1,0 +1,11 @@
+cc
+-I/usr/include/lua5.1
+-fdiagnostics-color=always
+-D_FILE_OFFSET_BITS=64
+-Wall
+-Winvalid-pch
+-O0
+-g
+-MD
+-MQ
+-MF

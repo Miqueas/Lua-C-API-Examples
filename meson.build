@@ -1,4 +1,4 @@
-project('Lua-C-API', 'c', version: '0.1')
+project('Lua-C-API-Examples', 'c', version: '0.1')
 
 lua51 = dependency('lua5.1', required: true)
 lua52 = dependency('lua5.2', required: true)
