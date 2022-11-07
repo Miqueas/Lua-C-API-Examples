@@ -4,13 +4,39 @@
 #include <lualib.h>
 #include <lauxlib.h>
 
-#define CODE "return 29, nil, true, 'str', io.stdin, function()end, {}"
+#define LCODE "return 29, nil, true, \"str\", io.stdin, function()end, {}"
 
-void stack_dump(lua_State *L, const char *title) {
+/* In this example we write a C function that iterates over the given
+ * stack, makes a simple string representation of the items and finally
+ * prints it as a more user friendly string
+ */
+
+void stack_dump(lua_State *L);
+
+int main(int argc, char **argv) {
+  lua_State *L = luaL_newstate();
+  luaL_openlibs(L);
+
+  int err = luaL_dostring(L, LCODE);
+  if (err) {
+    fprintf(stderr, "Can't load Lua string\n");
+    return 1;
+  }
+
+  stack_dump(L);
+  lua_close(L);
+
+  return 0;
+}
+
+void stack_dump(lua_State *L) {
+  // Gets the amount of items in the stack
   int top = lua_gettop(L);
 
-  printf("%s: [ ", title);
+  printf("stack: [ ");
 
+  // Interates in the stack, gets the type of every item
+  // and makes a simple string representation of it
   for (int i = 1; i <= top; i++) {
     int t = lua_type(L, i);
 
@@ -69,20 +95,4 @@ void stack_dump(lua_State *L, const char *title) {
   }
 
   printf(" ]\n");
-}
-
-int main(int argc, char **argv) {
-  lua_State *L = luaL_newstate();
-  luaL_openlibs(L);
-
-  int err = luaL_dostring(L, CODE);
-  if (err) {
-    fprintf(stderr, "Can't load Lua file\n");
-    return 1;
-  }
-
-  stack_dump(L, "stack");
-  lua_close(L);
-
-  return 0;
 }

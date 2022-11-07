@@ -4,6 +4,10 @@
 #include <lualib.h>
 #include <lauxlib.h>
 
+/* In this example we use some macros to check the Lua
+ * version and write different code for every version
+ */
+
 int main(int argc, char **argv) {
 #if LUA_VERSION_NUM == 501
   printf("Lua version: 5.1\n");

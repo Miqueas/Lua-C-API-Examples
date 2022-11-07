@@ -5,8 +5,12 @@
 #include <lualib.h>
 #include <lauxlib.h>
 
-#define str_arr_len(a) (sizeof(a) / sizeof(*a[0]))
+//#define str_arr_len(a) (sizeof(a) / sizeof(*a[0]))
 
+/* In this example, we're pushing userdata to Lua
+ */
+
+// Our userdata to push, a simple "Book" object type
 typedef struct {
   char *title;
   char *author;
@@ -15,8 +19,15 @@ typedef struct {
 } Book;
 
 int book___index(lua_State *L);
+int book_new(lua_State *L);
 
-int new_book(lua_State *L) {
+int luaopen_userdata(lua_State *L) {
+  lua_pushcfunction(L, book_new);
+
+  return 1;
+}
+
+int book_new(lua_State *L) {
   char *title  = (char*) luaL_checkstring(L, 1);
   char *author = (char*) luaL_checkstring(L, 2);
   int   pages  = luaL_checkint(L, 3);
@@ -60,12 +71,6 @@ int book___index(lua_State *L) {
     lua_pushinteger(L, (lua_Integer) self->year);
   else
     lua_pushnil(L);
-
-  return 1;
-}
-
-int luaopen_userdata(lua_State *L) {
-  lua_pushcfunction(L, new_book);
 
   return 1;
 }

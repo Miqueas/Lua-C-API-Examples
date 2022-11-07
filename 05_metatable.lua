@@ -1,6 +1,6 @@
 MyTable = {
   name     = "Miqueas",
-  age      = 21,
+  age      = 22,
   is_alive = true,
   role     = "Nerd",
   likes    = {
