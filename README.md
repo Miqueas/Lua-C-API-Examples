@@ -2,6 +2,8 @@
 
 A personal repo where I push things while I'm learning the Lua C API! Feel free to contribute :)
 
+> **NOTE**: I really think that the Lua C API and this examples can be highly self-explained, BUT I recommend you to always check the Reference Manual to see in detail how every thing works
+
 ## Building
 
 If you want to build this, you'll need Meson and Lua 5.1 development files and then:
