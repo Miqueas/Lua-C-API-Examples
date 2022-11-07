@@ -61,8 +61,8 @@ configure_file(
   input: 'constants.h.in',
   output: 'constants.h',
   configuration: {
-    'table':      meson.project_source_root() / '04_table.lua',
-    'metatable':  meson.project_source_root() / '05_metatable.lua'
+    'table':     meson.project_source_root() / '04_table.lua',
+    'metatable': meson.project_source_root() / '05_metatable.lua'
   }
 )
 
