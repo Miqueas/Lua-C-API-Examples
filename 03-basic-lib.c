@@ -12,7 +12,7 @@ int sqr(lua_State *L);
 int fib(lua_State *L);
 int cube(lua_State *L);
 
-int luaopen_basic_lib(lua_State *L) {
+int luaopen_basiclib(lua_State *L) {
   // Table to be returned
   lua_createtable(L, 0, 3);
 
