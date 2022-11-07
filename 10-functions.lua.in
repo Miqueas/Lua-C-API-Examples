@@ -1,0 +1,2 @@
+local add = require("@addfn@")
+print(add(25, 34))

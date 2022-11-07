@@ -90,6 +90,19 @@ newlib_lua = configure_file(
   configuration: { 'newlib': 'newlib' }
 )
 
+# Example 10: functions
+library('addfn', '10-functions.c',
+  name_prefix: '',
+  dependencies: lua51_dep,
+  c_args: [ '-fPIC', '-shared' ]
+)
+
+addfn_lua = configure_file(
+  input: '10-functions.lua.in',
+  output: '10-functions.lua',
+  configuration: { 'addfn': 'addfn' }
+)
+
 if tests
   test('01 hello world', hello_world_exe)
   # This example is expected to fail
@@ -103,4 +116,5 @@ if tests
   test('08 versions (5.2)', versions_52)
   test('08 versions (5.3)', versions_53)
   test('09 newlib (5.2+)', lua52_bin, args: [ newlib_lua ])
+  test('10 functions', lua51_bin, args: [ addfn_lua ])
 endif
