@@ -1,7 +1,13 @@
-local Book = require("@userdata@")
+require("userdata")
+
 local b = Book("Programming in Lua", "Roberto Ierusalimschy", 388, 2016)
+
+b:sayhello()
 
 print(b.title)
 print(b.author)
 print(b.pages)
 print(b.year)
+
+b:sayhello()
+b:sayhello()
