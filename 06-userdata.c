@@ -5,8 +5,6 @@
 #include <lualib.h>
 #include <lauxlib.h>
 
-//#define str_arr_len(a) (sizeof(a) / sizeof(*a[0]))
-
 /* In this example, we're pushing userdata to Lua
  */
 
@@ -19,7 +17,9 @@ typedef struct {
 } Book;
 
 int book___index(lua_State *L);
+int book___call(lua_State *L);
 int book_new(lua_State *L);
+int book_print_pages(lua_State *L);
 
 int luaopen_userdata(lua_State *L) {
   lua_pushcfunction(L, book_new);
@@ -51,10 +51,25 @@ int book_new(lua_State *L) {
   lua_pushcfunction(L, book___index);
   // stack: Book(userdata), table
   lua_rawset(L, 2);
+  // stack: Book(userdata), table, "__call"
+  lua_pushstring(L, "__call");
+  // stack: Book(userdata), table, "__call", cfunction
+  lua_pushcfunction(L, book___call);
+  // stack: Book(userdata), table
+  lua_rawset(L, 2);
   // stack: Book(userdata)
   lua_setmetatable(L, 1);
 
   return 1;
+}
+
+int book_print_pages(lua_State *L) {
+  Book *self = (Book *) lua_touserdata(L, 1);
+  const char *msg = "\"%s\" has %d pages.\n";
+
+  printf(msg, self->title, self->pages);
+
+  return 0;
 }
 
 int book___index(lua_State *L) {
@@ -69,8 +84,19 @@ int book___index(lua_State *L) {
     lua_pushinteger(L, (lua_Integer) self->pages);
   else if (!strcmp(k, "year"))
     lua_pushinteger(L, (lua_Integer) self->year);
+  else if (!strcmp(k, "print_pages"))
+    lua_pushcfunction(L, book_print_pages);
   else
     lua_pushnil(L);
 
   return 1;
+}
+
+int book___call(lua_State *L) {
+  Book *self = (Book *) lua_touserdata(L, 1);
+  const char *msg = "This is \"%s\", by %s, published in %d.\n";
+
+  printf(msg, self->title, self->author, self->year);
+
+  return 0;
 }

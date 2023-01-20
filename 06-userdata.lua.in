@@ -5,3 +5,7 @@ print(b.title)
 print(b.author)
 print(b.pages)
 print(b.year)
+
+b()
+
+b:print_pages()
