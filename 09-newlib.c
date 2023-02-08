@@ -25,7 +25,7 @@ const luaL_Reg funcs[] = {
 int luaopen_newlib(lua_State *L) {
   // This function is basically a helper/wrapper that just
   // creates a new table, fill it with our C functions and
-  // push it to the stack
+  // push it on to the stack
   luaL_newlib(L, funcs);
 
   return 1;
