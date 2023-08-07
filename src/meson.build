@@ -46,8 +46,8 @@ configure_file(
   input: 'constants.h.in',
   output: 'constants.h',
   configuration: {
-    'table':     meson.project_source_root() / '04-table.lua',
-    'metatable': meson.project_source_root() / '05-metatable.lua'
+    'table':     meson.project_source_root() / 'src' / '04-table.lua',
+    'metatable': meson.project_source_root() / 'src' / '05-metatable.lua'
   }
 )
 
@@ -105,14 +105,16 @@ if tests
   test('01 hello world', hello_world_exe)
   # This example is expected to fail
   test('02 global function', lua51_bin, args: [ gfunc_lua ], should_fail: true)
-  test('03 basic library', lua51_bin, args: [ basic_lib_lua ])
+  # Setting the 'LUA_CPATH' env prevents the test to fail. This is 'cuz Lua will not find the .so file otherwise if you
+  # run `meson test` from other directory
+  test('03 basic library', lua51_bin, args: [ basic_lib_lua ], env: { 'LUA_CPATH': meson.build_root() / 'src' / '?.so' })
   test('04 table', table_exe)
   test('05 metatable', metatable_exe)
-  test('06 userdata', lua51_bin, args: [ userdata_lua ])
+  test('06 userdata', lua51_bin, args: [ userdata_lua ], env: { 'LUA_CPATH': meson.build_root() / 'src' / '?.so' })
   test('07 stack dump', stack_dump_exe)
   test('08 versions (5.1)', versions_51)
   test('08 versions (5.2)', versions_52)
   test('08 versions (5.3)', versions_53)
-  test('09 newlib (5.2+)', lua52_bin, args: [ newlib_lua ])
-  test('10 functions', lua51_bin, args: [ addfn_lua ])
+  test('09 newlib (5.2+)', lua52_bin, args: [ newlib_lua ], env: { 'LUA_CPATH': meson.build_root() / 'src' / '?.so' })
+  test('10 functions', lua51_bin, args: [ addfn_lua ], env: { 'LUA_CPATH': meson.build_root() / 'src' / '?.so' })
 endif
