@@ -8,7 +8,6 @@ tasks:
       sudo apt install -yq ccls python3-pip liblua5.1-0-dev liblua5.2-dev liblua5.3-dev liblua5.4-dev lua5.1 lua5.2 lua5.3 lua5.4
       sudo pip3 install -Uq meson ninja
       meson setup _BUILD
-      ln -s _BUILD/compile_commands.json
 
 vscode:
   extensions:
