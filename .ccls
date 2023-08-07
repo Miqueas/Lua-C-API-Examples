@@ -1,8 +1,12 @@
 cc
 -I/usr/include/lua5.1
+-I/usr/include/lua5.2
+-I/usr/include/lua5.3
+-I/usr/include/lua5.4
 -fdiagnostics-color=always
 -D_FILE_OFFSET_BITS=64
 -Wall
+-Wextra
 -Winvalid-pch
 -O0
 -g
