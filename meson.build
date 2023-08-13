@@ -1,3 +1,3 @@
-project('Lua-C-API-Examples', 'c', version: '0.1')
+project('Lua-C-API-Examples', 'c')
 
 subdir('src')
