@@ -5,29 +5,26 @@ jobs:
     name: Build & Test
     runs-on: ubuntu-latest
     steps:
-      - name: Set up repository
+      - name: Clone repository
         uses: actions/checkout@v2
+      
+      - name: Update packages
+        run: sudo apt update -yq
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-
-      - name: Set up GCC
-        uses: egor-tensin/setup-gcc@v1
-
-      - name: Set up Lua
+      - name: Installing required packages
         run: >
-          sudo apt install -yq libreadline-dev libncurses-dev
-          lua5.1 lua5.2 lua5.3 liblua5.1-0-dev
-          liblua5.2-dev liblua5.3-dev
+          sudo apt install -yq gcc python3 python3-pip
+          lua5.1 lua5.2 lua5.3 lua5.4
+          liblua5.1-0-dev liblua5.2-dev liblua5.3-dev liblua5.4-dev
 
       - name: Installing Meson and Ninja
-        run: pip install meson ninja
+        run: sudo pip3 install -U meson ninja
         
       - name: Configure using meson
-        run: meson . _BUILD
+        run: meson setup _BUILD -Dtests=true
       
       - name: Build with Ninja
-        run: ninja -C _BUILD
+        run: ninja -vC _BUILD
 
       - name: Running Meson tests
         run: meson test -C _BUILD
