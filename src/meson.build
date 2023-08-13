@@ -1,6 +1,7 @@
 lua51_dep = dependency('lua5.1', required: true)
 lua52_dep = dependency('lua5.2', required: true)
 lua53_dep = dependency('lua5.3', required: true)
+lua54_dep = dependency('lua5.4', required: true)
 lua51_bin = find_program('lua5.1', 'lua51', required: false)
 lua52_bin = find_program('lua5.2', 'lua52', required: false)
 tests = get_option('tests')
@@ -74,6 +75,7 @@ stack_dump_exe = executable('07-stack-dump', '07-stack-dump.c', dependencies: lu
 versions_51 = executable('08-versions-51', '08-versions.c', dependencies: lua51_dep)
 versions_52 = executable('08-versions-52', '08-versions.c', dependencies: lua52_dep)
 versions_53 = executable('08-versions-53', '08-versions.c', dependencies: lua53_dep)
+versions_54 = executable('08-versions-54', '08-versions.c', dependencies: lua54_dep)
 
 # Example 09: newlib
 library('newlib', '09-newlib.c',
@@ -115,6 +117,7 @@ if tests
   test('08 versions (5.1)', versions_51)
   test('08 versions (5.2)', versions_52)
   test('08 versions (5.3)', versions_53)
+  test('08 versions (5.4)', versions_54)
   test('09 newlib (5.2+)', lua52_bin, args: [ newlib_lua ], env: { 'LUA_CPATH': meson.build_root() / 'src' / '?.so' })
   test('10 functions', lua51_bin, args: [ addfn_lua ], env: { 'LUA_CPATH': meson.build_root() / 'src' / '?.so' })
 endif
