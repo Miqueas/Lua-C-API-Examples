@@ -13,7 +13,7 @@ jobs:
 
       - name: Installing required packages
         run: >
-          sudo apt install -yq gcc python3 python3-pip
+          sudo apt install -yq gcc python3-pip
           lua5.1 lua5.2 lua5.3 lua5.4
           liblua5.1-0-dev liblua5.2-dev liblua5.3-dev liblua5.4-dev
 
