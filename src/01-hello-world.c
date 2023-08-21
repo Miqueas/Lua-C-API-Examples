@@ -9,7 +9,7 @@
  * then calls: print("Hello, world!")
  */
 
-int main(int argc, char **argv) {
+int main(void) {
   // Creates a new lua runtime
   lua_State *L = luaL_newstate();
   // Enable lua standard libraries
