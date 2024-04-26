@@ -18,9 +18,9 @@ configure_file(
   input: 'constants.h.in',
   output: 'constants.h',
   configuration: {
-    'table':     meson.project_source_root() / 'src' / '04-table.lua',
-    'metatable': meson.project_source_root() / 'src' / '05-metatable.lua',
-    'hooks':     meson.project_source_root() / 'src' / '11-hooks.lua'
+    'table':     meson.current_source_dir() / '04-table.lua',
+    'metatable': meson.current_source_dir() / '05-metatable.lua',
+    'hooks':     meson.current_source_dir() / '11-hooks.lua'
   }
 )
 # ==== Example 01: hello world ==== #
@@ -109,22 +109,26 @@ addfn_lua = configure_file(
 # ==== Example 11: hooks ==== #
 hooks_exe = executable('11-hooks', '11-hooks.c', dependencies: lua51_dep)
 
+# ==== Example 12: multiple states ==== #
+multi_state_exe = executable('12-multi-state', '12-multi-state.c', dependencies: lua51_dep)
+
 if tests
   test('01 hello world', hello_world_exe)
   # This example is expected to fail
   test('02 global function', lua51_bin, args: [ gfunc_lua ], should_fail: true)
   # Setting the 'LUA_CPATH' env prevents the test to fail. This is 'cuz Lua will not find the .so file otherwise if you
   # run `meson test` from other directory
-  test('03 basic library', lua51_bin, args: [ basic_lib_lua ], env: { 'LUA_CPATH': meson.build_root() / 'src' / '?.so' })
+  test('03 basic library', lua51_bin, args: [ basic_lib_lua ], env: { 'LUA_CPATH': meson.current_build_dir() / '?.so' })
   test('04 table', table_exe)
   test('05 metatable', metatable_exe)
-  test('06 userdata', lua51_bin, args: [ userdata_lua ], env: { 'LUA_CPATH': meson.build_root() / 'src' / '?.so' })
+  test('06 userdata', lua51_bin, args: [ userdata_lua ], env: { 'LUA_CPATH': meson.current_build_dir() / '?.so' })
   test('07 stack dump', stack_dump_exe)
   test('08 versions (5.1)', versions_51_exe)
   test('08 versions (5.2)', versions_52_exe)
   test('08 versions (5.3)', versions_53_exe)
   test('08 versions (5.4)', versions_54_exe)
-  test('09 newlib (5.2+)', lua52_bin, args: [ newlib_lua ], env: { 'LUA_CPATH': meson.build_root() / 'src' / '?.so' })
-  test('10 functions', lua51_bin, args: [ addfn_lua ], env: { 'LUA_CPATH': meson.build_root() / 'src' / '?.so' })
+  test('09 newlib (5.2+)', lua52_bin, args: [ newlib_lua ], env: { 'LUA_CPATH': meson.current_build_dir() / '?.so' })
+  test('10 functions', lua51_bin, args: [ addfn_lua ], env: { 'LUA_CPATH': meson.current_build_dir() / '?.so' })
   test('11 hooks', hooks_exe)
+  test('12 multi state', multi_state_exe)
 endif
