@@ -3,5 +3,9 @@ local age = 29
 
 print(name, age)
 
-age = 23
-name = "Josue"
+local function setNameAndAge()
+  age = 23
+  name = "Josue"
+end
+
+setNameAndAge()

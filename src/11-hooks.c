@@ -11,11 +11,13 @@ void lineHook(lua_State *L, lua_Debug *ar) {
 
   // Depending on what hook we handle, `ar` will be partially filled in some
   // fields, so we need to manually full fill it
-  lua_getinfo(L, "S", ar);
-  lua_getinfo(L, "u", ar);
+  lua_getinfo(L, "nS", ar);
 
-  printf(" -> name: %s\n", ar->name);
-  printf(" -> namewhat: %s\n", ar->namewhat);
+  if (ar->name != NULL) {
+    printf(" -> name: %s\n", ar->name);
+    printf(" -> namewhat: %s\n", ar->namewhat);
+  }
+
   printf(" -> what: %s\n", ar->what);
   printf(" -> source: %s\n", ar->source);
   printf(" -> currentline: %d\n", ar->currentline);
