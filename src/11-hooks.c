@@ -24,6 +24,7 @@ void lineHook(lua_State *L, lua_Debug *ar) {
 int main(void) {
   lua_State *vm = luaL_newstate();
   lua_sethook(vm, lineHook, LUA_MASKLINE, 0);
+  luaL_openlibs(vm);
   int err = luaL_dofile(vm, HOOKS_PATH);
   printf("Code: %d\n", err);
   lua_close(vm);
