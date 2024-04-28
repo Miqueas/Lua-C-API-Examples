@@ -1,3 +1,4 @@
 #define TABLE_PATH     "@table@"
 #define METATABLE_PATH "@metatable@"
 #define HOOKS_PATH     "@hooks@"
+#define THREADED_PATH  "@threaded@"

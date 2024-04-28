@@ -14,13 +14,14 @@ else
 endif
 
 # ==== Constants header used by some examples (04, 05 & 11) ==== #
-configure_file(
+constants_h = configure_file(
   input: 'constants.h.in',
   output: 'constants.h',
   configuration: {
     'table':     meson.current_source_dir() / '04-table.lua',
     'metatable': meson.current_source_dir() / '05-metatable.lua',
-    'hooks':     meson.current_source_dir() / '11-hooks.lua'
+    'hooks':     meson.current_source_dir() / '11-hooks.lua',
+    'threaded':  meson.current_source_dir() / '12-multiple-vm.lua',
   }
 )
 # ==== Example 01: hello world ==== #
@@ -53,10 +54,10 @@ basic_lib_lua = configure_file(
 )
 
 # ==== Example 04: table ==== #
-table_exe = executable('04-table', '04-table.c', dependencies: lua51_dep)
+table_exe = executable('04-table', [ constants_h, '04-table.c' ], dependencies: lua51_dep)
 
 # ==== Example 05: metatable ==== #
-metatable_exe = executable('05-metatable', '05-metatable.c', dependencies: lua51_dep)
+metatable_exe = executable('05-metatable', [ constants_h, '05-metatable.c'], dependencies: lua51_dep)
 
 # ==== Example 06: userdata ==== #
 library('userdata', '06-userdata.c',
@@ -107,10 +108,10 @@ addfn_lua = configure_file(
 )
 
 # ==== Example 11: hooks ==== #
-hooks_exe = executable('11-hooks', '11-hooks.c', dependencies: lua51_dep)
+hooks_exe = executable('11-hooks', [ constants_h, '11-hooks.c' ], dependencies: lua51_dep)
 
-# ==== Example 12: multiple states ==== #
-multi_state_exe = executable('12-multi-state', '12-multi-state.c', dependencies: lua51_dep)
+# ==== Example 12: multiple vm's ==== #
+multiple_vm_exe = executable('12-multiple-vm', [ constants_h, '12-multiple-vm.c' ], dependencies: lua51_dep, link_args: [ '-lpthread' ])
 
 if tests
   test('01 hello world', hello_world_exe)
@@ -130,5 +131,5 @@ if tests
   test('09 newlib (5.2+)', lua52_bin, args: [ newlib_lua ], env: { 'LUA_CPATH': meson.current_build_dir() / '?.so' })
   test('10 functions', lua51_bin, args: [ addfn_lua ], env: { 'LUA_CPATH': meson.current_build_dir() / '?.so' })
   test('11 hooks', hooks_exe)
-  test('12 multi state', multi_state_exe)
+  test('12 multi state', multiple_vm_exe)
 endif
