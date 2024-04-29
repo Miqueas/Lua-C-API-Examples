@@ -1,4 +1,0 @@
-{
-  "mesonbuild.configureOnOpen": true,
-  "C_Cpp.default.compileCommands": "_BUILD/compile_commands.json"
-}
