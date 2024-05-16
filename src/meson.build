@@ -79,7 +79,7 @@ stack_dump_exe = executable('07-stack-dump', '07-stack-dump.c', dependencies: lu
 versions_51_exe = executable('08-versions-51', '08-versions.c', dependencies: lua51_dep)
 versions_52_exe = executable('08-versions-52', '08-versions.c', dependencies: lua52_dep)
 versions_53_exe = executable('08-versions-53', '08-versions.c', dependencies: lua53_dep)
-versions_54_exe = executable('08-versions-54', '08-versions.c', dependencies: lua54_dep)
+versions_54_exe = executable('08-versions-54', '08-versions.c', link_with: liblua54, include_directories: lua54_headers)
 
 # ==== Example 09: newlib ==== #
 library('newlib', '09-newlib.c',
